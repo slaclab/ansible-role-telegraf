@@ -10,19 +10,15 @@
   become: true
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: "Restart Telegraf container"
-  docker_container:
-    name: "{{ telegraf_agent_docker_name }}"
-    restart: True
-  when: telegraf_agent_docker
-  ignore_errors: "{{ ansible_check_mode }}"
+- include_tasks: "{{ item }}"
+  # Only parse docker.yml if it's going to be used:
+  loop: '{{ [ "docker.yml" ] if telegraf_agent_docker else [] }}'
+  listen: "Restart Telegraf container"
 
-- name: "Restart Windows Telegraf"
-  win_service:
-    name: Telegraf
-    start_mode: auto
-    state: restarted
-  ignore_errors: "{{ ansible_check_mode }}"
+- include_tasks: "{{ item }}"
+  # Only parse windows.yml if it's going to be used:
+  loop: '{{ [ "windows.yml" ] if ansible_os_family == "Windows" and not telegraf_agent_docker else [] }}'
+  listen: "Restart Windows Telegraf"
 
 - name: "Restart MacOS Telegraf"
   command: brew services restart telegraf
