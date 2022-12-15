@@ -31,11 +31,6 @@
 - include_tasks: "docker.yml"
   when: telegraf_agent_docker
 
-- name: "Granting telegraf user sudo rights and local shell access to execute system commands"
-  include_tasks: "sudo.yml"
-  when:
-    - ansible_os_family not in ['Windows', 'Darwin']
-
 - name: "Installing freeipmi for dmidecode readings"
   include_tasks: "freeipmi.yml"
   when:
