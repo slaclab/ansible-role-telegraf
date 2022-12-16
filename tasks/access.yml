@@ -1,0 +1,6 @@
+---
+
+- name: Copy client access.conf file to local machine
+  ansible.builtin.template:
+    src: access.j2
+    dest: /etc/security/access.conf
