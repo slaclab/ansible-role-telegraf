@@ -36,13 +36,8 @@
   when:
     - ansible_os_family not in ['Windows', 'Darwin']
 
-- name: "granting telegraf local access to execute commands in shell"
-  include_tasks: "access.yml"
-  when:
-    - ansible_os_family not in ['Windows', 'Darwin']
-
-- name: "granfing telegraf sudo priviliges"
-  include_tasks: "sudoers.yml"
+- name: "granting telegraf user root rights to execute commands in shell without password"
+  include_tasks: "telegraf.yml"
   when:
     - ansible_os_family not in ['Windows', 'Darwin']
 
