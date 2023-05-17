@@ -36,11 +36,6 @@
   when:
     - ansible_os_family not in ['Windows', 'Darwin']
 
-- name: "granting telegraf user root rights to execute commands in shell without password"
-  include_tasks: "telegraf.yml"
-  when:
-    - ansible_os_family not in ['Windows', 'Darwin']
-
 - name: "Configure Telegraf"
   include_tasks: "configure_linux.yml"
   when:
