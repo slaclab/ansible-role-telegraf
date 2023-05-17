@@ -9,13 +9,5 @@
         group: root
         mode: 0440
         validate: /usr/sbin/visudo -csf %s
-    
-    - name: Adding telegraf user to access.conf file
-      ansible.builtin.template:
-        src: access.j2
-        dest: /etc/security/access.conf
-        owner: root
-        group: root
-        mode: 0644
   notify:
     - Restart Telegraf
