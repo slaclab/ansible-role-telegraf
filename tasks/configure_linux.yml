@@ -19,7 +19,7 @@
     - telegraf_agent_version is version('0.10.0', '<')
   notify:
     - Restart Telegraf
-    - Restart Telegraf container
+#    - Restart Telegraf container
 
 - name: "Copy the template for versions >= 0.10.0"
   template:
@@ -33,7 +33,7 @@
     - telegraf_agent_version is version('0.10.0', '>=')
   notify:
     - Restart Telegraf
-    - Restart Telegraf container
+#    - Restart Telegraf container
 
 - name: "Check if extra plugins directory exists in case of exclusive"
   stat:
@@ -52,7 +52,7 @@
   become: yes
   notify:
     - Restart Telegraf
-    - Restart Telegraf container
+#    - Restart Telegraf container
 
 - name: "Create telegraf extra plugin path"
   file:
@@ -67,7 +67,7 @@
   become: yes
   notify:
     - Restart Telegraf
-    - Restart Telegraf container
+#    - Restart Telegraf container
 
 - name: "Copy telegraf extra plugins"
   template:
@@ -86,7 +86,7 @@
   become: yes
   notify:
     - Restart Telegraf
-    - Restart Telegraf container
+#    - Restart Telegraf container
 
 - name: "Remove telegraf extra plugins"
   file:
@@ -102,7 +102,7 @@
   become: yes
   notify:
     - Restart Telegraf
-    - Restart Telegraf container
+#    - Restart Telegraf container
 
 - name: "Force restart service after reread config"
   meta: flush_handlers
@@ -115,18 +115,18 @@
   become: yes
   when: not telegraf_agent_docker
 
-- name: Configure system for for docker plugin
-  block:
-    - name: Add telegraf user to docker group
-      user:
-        name: telegraf
-        groups: docker
-        append: true
-      become: true
-      notify:
-        - Restart Telegraf
-
-  when: "'docker' in telegraf_plugins_extra and not telegraf_agent_docker"
+#- name: Configure system for for docker plugin
+#  block:
+#    - name: Add telegraf user to docker group
+#      user:
+#        name: telegraf
+#        groups: docker
+#        append: true
+#      become: true
+#      notify:
+#        - Restart Telegraf
+#
+#  when: "'docker' in telegraf_plugins_extra and not telegraf_agent_docker"
 
 - name: Configure system for for smart plugin
   block:
