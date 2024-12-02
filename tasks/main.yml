@@ -41,11 +41,6 @@
   when:
     - ansible_os_family not in ['Windows', 'Darwin']
 
-- name: "Install / Configure telegraf on Windows"
-  include_tasks: "configure_windows.yml"
-  when:
-    - ansible_os_family == "Windows" and not telegraf_agent_docker
-
 - name: "Install / Configure telegraf on MacOS"
   include_tasks: "configure_macos.yml"
   when:
