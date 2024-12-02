@@ -33,13 +33,8 @@
   when:
     - ansible_os_family == "Darwin" and not telegraf_agent_docker
 
-#- include_tasks: "docker.yml"
-#  when: telegraf_agent_docker
-
-- name: "Installing freeipmi for dmidecode readings"
-  include_tasks: "freeipmi.yml"
-  when:
-    - ansible_os_family not in ['Windows', 'Darwin']
+- include_tasks: "docker.yml"
+  when: telegraf_agent_docker
 
 - name: "Configure Telegraf"
   include_tasks: "configure_linux.yml"
