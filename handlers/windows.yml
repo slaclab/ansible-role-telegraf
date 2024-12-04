@@ -1,0 +1,8 @@
+---
+# handlers file for ansible-telegraf
+- name: "Restart Windows Telegraf"
+  win_service:
+    name: Telegraf
+    start_mode: auto
+    state: restarted
+  ignore_errors: "{{ ansible_check_mode }}"
