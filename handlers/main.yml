@@ -13,10 +13,12 @@
 - include_tasks: "{{ item }}"
   # Only parse docker.yml if it's going to be used:
   loop: '{{ [ "docker.yml" ] if telegraf_agent_docker else [] }}'
+  listen: "Restart Telegraf container"
 
 - include_tasks: "{{ item }}"
   # Only parse windows.yml if it's going to be used:
   loop: '{{ [ "windows.yml" ] if ansible_os_family == "Windows" and not telegraf_agent_docker else [] }}'
+  listen: "Restart Windows Telegraf"
 
 - name: "Restart MacOS Telegraf"
   command: brew services restart telegraf
